@@ -46,7 +46,7 @@ fi
 
 cp /vagrant/${ANSIBLE_HOSTS} ${TEMP_HOSTS} && chmod -x ${TEMP_HOSTS}
 echo "Running Ansible provisioner defined in Vagrantfile."
-ansible-playbook /vagirant/${ANSIBLE_PLAYBOOK} \
+ansible-playbook /vagrant/${ANSIBLE_PLAYBOOK} \
   --inventory-file=${TEMP_HOSTS} \
   --limit=${HOSTNAME} \
   --extra-vars "is_windows=true" \
