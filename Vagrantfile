@@ -14,7 +14,7 @@ def is_windows
   RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
 end
 
-def ansible_provision(node)
+def provision_ansible(config, node)
   if is_windows
     # Provisioning configuration for shell script.
     config.vm.provision "shell" do |sh|
@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = host['name']
       end
 
-      provision_ansible(node)
+      provision_ansible(config, node)
     end
   end
 end
