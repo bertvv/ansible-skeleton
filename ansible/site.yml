@@ -1,0 +1,11 @@
+# site.yml
+---
+- hosts: srv001
+  sudo: true
+  roles:
+    - common
+
+- hosts: srv002
+  sudo: true
+  roles:
+    - common
