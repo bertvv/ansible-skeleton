@@ -31,7 +31,7 @@ fi
 # Install Ansible and its dependencies if it's not installed already.
 if [ ! -f /usr/bin/ansible ]; then
   echo "Installing Ansible dependencies and Git."
-  yum install -y git python python-devel
+  yum install -y gcc git python python-devel
   echo "Installing pip via easy_install."
   wget http://peak.telecommunity.com/dist/ez_setup.py
   python ez_setup.py && rm -f ez_setup.py
@@ -46,5 +46,9 @@ fi
 
 cp /vagrant/${ANSIBLE_HOSTS} ${TEMP_HOSTS} && chmod -x ${TEMP_HOSTS}
 echo "Running Ansible provisioner defined in Vagrantfile."
-ansible-playbook /vagrant/${ANSIBLE_PLAYBOOK} --inventory-file=${TEMP_HOSTS} --extra-vars "is_windows=true" --connection=local
+ansible-playbook /vagirant/${ANSIBLE_PLAYBOOK} \
+  --inventory-file=${TEMP_HOSTS} \
+  --limit=${HOSTNAME} \
+  --extra-vars "is_windows=true" \
+  --connection=local
 rm ${TEMP_HOSTS}
