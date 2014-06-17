@@ -10,7 +10,9 @@ hosts = YAML.load_file('hosts.yml')
 
 # {{{ Helper functions
 
-is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+def is_windows
+  RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+end
 
 def ansible_provision(node)
   if is_windows
@@ -30,7 +32,6 @@ end
 
 # }}}
 
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'misheska/centos65'
   hosts.each do |host|
@@ -44,9 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = host['name']
       end
 
-      node.vm.provision 'ansible' do |ansible|
-        ansible.playbook = 'ansible/site.yml'
-      end
+      provision_ansible(node)
     end
   end
 end
