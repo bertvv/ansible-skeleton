@@ -19,7 +19,7 @@ def provision_ansible(config, node)
     # Provisioning configuration for shell script.
     config.vm.provision "shell" do |sh|
       sh.path = "shell/winsible.sh"
-      sh.args = "ansible/site.yml"
+      sh.args = "ansible/site.yml inventory"
     end
   else
     # Provisioning configuration for Ansible (for Mac/Linux hosts).
