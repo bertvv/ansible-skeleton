@@ -6,7 +6,7 @@ require 'yaml'
 
 VAGRANTFILE_API_VERSION = '2'
 
-hosts = YAML.load_file('hosts.yml')
+hosts = YAML.load_file('vagrant_hosts.yml')
 
 # {{{ Helper functions
 
