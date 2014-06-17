@@ -11,8 +11,7 @@ hosts = YAML.load_file('vagrant_hosts.yml')
 # {{{ Helper functions
 
 def is_windows
-  #RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
-  true
+  RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
 end
 
 def provision_ansible(config, node)
