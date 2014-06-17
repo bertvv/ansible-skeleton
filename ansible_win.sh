@@ -14,17 +14,16 @@
 # Uncomment if behind a proxy server.
 # export {http,https,ftp}_proxy='http://username:password@proxy-host:80'
 
-ANSIBLE_PLAYBOOK=$1
-ANSIBLE_HOSTS=$2
-TEMP_HOSTS="/tmp/ansible_hosts"
+playbook=/etc/ansible/site.yml
+inventory=/vagrant/inventory_dev
 
-if [ ! -f /vagrant/$ANSIBLE_PLAYBOOK ]; then
+if [ ! -f ${playbook} ]; then
   echo "Cannot find Ansible playbook."
   exit 1
 fi
 
-if [ ! -f /vagrant/$ANSIBLE_HOSTS ]; then
-  echo "Cannot find Ansible hosts."
+if [ ! -f ${inventory} ]; then
+  echo "Cannot find inventory file."
   exit 2
 fi
 
@@ -44,11 +43,8 @@ if [ ! -f /usr/bin/ansible ]; then
   pip install ansible
 fi
 
-cp /vagrant/${ANSIBLE_HOSTS} ${TEMP_HOSTS} && chmod -x ${TEMP_HOSTS}
-echo "Running Ansible provisioner defined in Vagrantfile."
-ansible-playbook /vagrant/${ANSIBLE_PLAYBOOK} \
-  --inventory-file=${TEMP_HOSTS} \
+ansible-playbook ${playbook} \
+  --inventory-file=${inventory} \
   --limit=${HOSTNAME} \
   --extra-vars "is_windows=true" \
   --connection=local
-rm ${TEMP_HOSTS}
