@@ -32,14 +32,14 @@ end
 # }}}
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'misheska/centos65'
+  config.vm.box = 'centos70-nocm'
   hosts.each do |host|
     config.vm.define host['name'] do |node|
       node.vm.hostname = host['name']
       node.vm.network :private_network,
         ip: host['ip'],
         netmask: '255.255.255.0'
-      node.vm.synced_folder 'ansible/', '/etc/ansible'
+      node.vm.synced_folder 'ansible/', '/etc/ansible', mount_options: ["fmode=666"]  
 
       node.vm.provider :virtualbox do |vb|
         vb.name = host['name']

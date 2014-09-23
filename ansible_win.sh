@@ -15,7 +15,7 @@
 # export {http,https,ftp}_proxy='http://username:password@proxy-host:80'
 
 playbook=/etc/ansible/site.yml
-inventory=/vagrant/inventory_dev
+inventory=/etc/ansible/inventory_dev
 
 if [ ! -f ${playbook} ]; then
   echo "Cannot find Ansible playbook."
