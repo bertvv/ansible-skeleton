@@ -23,11 +23,13 @@ The `ansible/` directory contains the Ansible configuration, and should at least
 If you want to add a box, you should edit these files:
 
 * `vagrant_hosts.yml` so a Vagrant box is created:
+ 
   ```yaml
   -
     name: srv003
     ip: 192.168.56.13
   ```
+
 * `inventory_dev` (the Ansible inventory file for your development environment) so Ansible will actually be able to manage it.
 * `site.yml` to assign some roles to the box.
 
