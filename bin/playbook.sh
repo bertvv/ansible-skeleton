@@ -2,13 +2,15 @@
 #
 # Author:   Bert Van Vreckem <bert.vanvreckem@gmail.com>
 #
-# Run Ansible manually on a host managed by Vagrant
+# Run Ansible manually on a host managed by Vagrant. Fix the path to the Vagrant
+# private key before use!
 
-set -e # abort on nonzero exitstatus
-set -u # abort on unbound variable
+set -o errexit # abort on nonzero exitstatus
+set -o nounset # abort on unbound variable
 
- #{{{ Variables
-inventory_file="${PWD}/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory"
+#{{{ Variables
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+inventory_file="${script_dir}/../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory"
 ssh_user=vagrant
 private_key_path="/opt/vagrant/embedded/gems/gems/vagrant-1.6.5/keys/vagrant"
 #}}}
@@ -25,8 +27,8 @@ from the same directory as the Vagrantfile.
 _EOF_
 }
 
-#}}}
-# {{{ Command line parsing
+ #}}}
+#  {{{ Command line parsing
 
 if [[ "$#" -lt "1" ]]; then
     echo "Expected at least 1 arguments, got $#" >&2
