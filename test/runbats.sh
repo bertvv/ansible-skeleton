@@ -42,7 +42,9 @@ fi
 
 # List all test cases (i.e. files in the test dir matching the test file
 # pattern)
+# Tests to be run on all hosts
 global_tests=$(find "${test_dir}" -maxdepth 1 -type f -name "${test_file_pattern}" -printf "%p\n")
+# Tests for individual hosts
 host_tests=$(find "${test_dir}/${HOSTNAME}" -type f -name "${test_file_pattern}" -printf "%p\n")
 
 # Loop over test files

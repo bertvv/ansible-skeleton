@@ -37,7 +37,7 @@ If you want to add a box, you should edit these files:
 
 There's a discussion on whether Unit tests are necessary for Ansible. Indeed, with its declarative nature, Ansible largely takes away the need to check for certain things independently from the playbook definitions. Be sure to read through [this discussion unit testing for Ansible](https://groups.google.com/forum/#!topic/ansible-project/7VhqDDtf6Js) on Google groups.
 
-In any case, if you *want* to include tests, this skeleton provides a way, through the [Bash Automated Testing System (BATS)](https://github.com/sstephenson/bats). Put your BATS test scripts in the `test/` directory and they will become available on your guest VMs as a synced folder, mounted in `/tmp/test`. Scripts that you want to run on each host should stored in the `test/` directory itself, scripts for individual hosts should be stored in subdirectories with the same name as the host.
+In any case, if you *want* to include tests, this skeleton provides a way, through the [Bash Automated Testing System (BATS)](https://github.com/sstephenson/bats). Put your BATS test scripts in the `test/` directory and they will become available on your guest VMs as a synced folder, mounted in `/tmp/test`. Scripts that you want to run on each host should be stored in the `test/` directory itself, scripts for individual hosts should be stored in subdirectories with the same name as the host.
 
 The script `runbats.sh`, when run inside the VM, will install BATS if needed and execute all test scripts for that host.
 
