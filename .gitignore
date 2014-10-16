@@ -5,3 +5,6 @@
 
 # Ignore backup files
 *~
+
+# BATS installation
+test/bats/
