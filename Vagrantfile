@@ -18,7 +18,7 @@ def provision_ansible(config)
   if is_windows
     # Provisioning configuration for shell script.
     config.vm.provision "shell" do |sh|
-      sh.path = "ansible_win.sh"
+      sh.path = "scripts/playbook_win.sh"
     end
   else
     # Provisioning configuration for Ansible (for Mac/Linux hosts).

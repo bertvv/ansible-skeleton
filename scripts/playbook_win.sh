@@ -11,9 +11,6 @@
 # @version 1.0
 #
 
-# Uncomment if behind a proxy server.
-# export {http,https,ftp}_proxy='http://username:password@proxy-host:80'
-
 playbook=/etc/ansible/site.yml
 inventory=/etc/ansible/inventory_dev
 
@@ -47,4 +44,5 @@ ansible-playbook ${playbook} \
   --inventory-file=${inventory} \
   --limit=${HOSTNAME} \
   --extra-vars "is_windows=true" \
-  --connection=local
+  --connection=local \
+  "$@"
