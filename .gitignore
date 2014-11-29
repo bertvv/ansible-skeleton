@@ -1,10 +1,14 @@
 # .gitignore
 
-# Ignore hidden Vagrant-directory
+# Hidden Vagrant-directory
 .vagrant
 
-# Ignore backup files
+# Backup files (e.g. Vim, Gedit, etc.)
 *~
 
 # BATS installation
 test/bats/
+
+# Vagrant base boxes (you never know when someone puts one in the repository)
+*.box
+
