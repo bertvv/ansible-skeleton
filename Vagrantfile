@@ -29,16 +29,45 @@ def provision_ansible(config)
   end
 end
 
+# Set options for the network interface configuration. A host should at least
+# get an IP address. Other values are optional, and can include:
+# - netmask (default value = 255.255.255.0
+# - mac
+# - auto_config (if false, Vagrant will not configure this network interface
+# - intnet (if true, an internal network adapter will be created instead of a
+#   host-only adapter)
+def network_options(host)
+  options = {
+    ip: host['ip'],
+    netmask: host['netmask'] ||= '255.255.255.0'
+  }
+
+  if host.has_key?('mac')
+    options[:mac] = host['mac']
+  end
+  if host.has_key?('auto_config')
+    options[:auto_config] = host['auto_config']
+  end
+  if host.has_key?('intnet') && host['intnet']
+    options[:virtualbox__intnet] = true
+  end
+
+  options
+end
+
 # }}}
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
   config.vm.box = 'centos70-nocm'
+
   hosts.each do |host|
     config.vm.define host['name'] do |node|
+
       node.vm.hostname = host['name']
-      node.vm.network :private_network,
-        ip: host['ip'],
-        netmask: '255.255.255.0'
+
+      node.vm.network :private_network, network_options(host)
+
       node.vm.synced_folder 'ansible/', '/etc/ansible', mount_options: ["fmode=666"]
 
       node.vm.provider :virtualbox do |vb|
