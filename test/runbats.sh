@@ -2,17 +2,16 @@
 #
 # Author:   Bert Van Vreckem <bert.vanvreckem@gmail.com>
 #
-# Run all BATS test files in the current directory.
+# Run BATS test files in the current directory, and the ones in the subdirectory
+# matching the host name.
 #
 # The script installs BATS if needed. It's best to put ${bats_install_dir} in
 # your .gitignore.
 
-set -e # abort on nonzero exitstatus
-set -u # abort on unbound variable
+set -o errexit  # abort on nonzero exitstatus
+set -o nounset  # abort on unbound variable
 
 #{{{ Variables
-
-color_defs="${HOME}/.bash.d/colors.sh"
 
 test_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -22,20 +21,16 @@ bats="${bats_install_dir}/libexec/bats"
 
 test_file_pattern="*.bats"
 
+# color definitions
+Blue='\e[0;34m'
+Yellow='\e[0;33m'
+Reset='\e[0m'
+
 #}}}
 # Script proper
 
-# Load color definitions, if available
-if [[ -f "${color_defs}" ]]; then
-  source "${color_defs}"
-else
-  Blue=
-  Yellow=
-  Reset=
-fi
-
 # Install BATS if needed
-if [[ ! -d "${bats_install_dir}" ]]; then
+if [ ! -d "${bats_install_dir}" ]; then
   git clone "${bats_repo_url}" "${bats_install_dir}"
   rm -rf "${bats_install_dir}/.git*"
 fi
@@ -50,5 +45,5 @@ host_tests=$(find "${test_dir}/${HOSTNAME}" -type f -name "${test_file_pattern}"
 # Loop over test files
 for test_case in ${global_tests} ${host_tests}; do
   echo -e "${Blue}Running test ${Yellow}${test_case}${Reset}"
-  #${bats} ${test_case}
+  ${bats} "${test_case}"
 done
