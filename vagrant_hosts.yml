@@ -1,13 +1,27 @@
-# hosts.yml
+# vagrant_hosts.yml
 #
-# List of hosts to be created by Vagrant. Your `site.yml` should contain
-# the same hosts. This file controls the Vagrant settings, `site.yml` the
-# Ansible-related stuff.
+# List of hosts to be created by Vagrant. This file controls the Vagrant
+# settings, specifically host name and network settings. You should at least
+# have a `name:` and `ip:`.  Other optional settings that can be specified:
+#
+# * `netmask`: by default, the network mask is `255.255.255.0`. If you want
+#              another one, it should be specified.
+# * `mac`: The MAC address to be assigned to the NIC. Several notations are
+#          accepted, including "Linux-style" (`00:11:22:33:44:55`) and
+#          "Windows-style" (`00-11-22-33-44-55`). The separator characters can
+#          be omitted altogether (`001122334455`).
+# * `intnet`: If set to `true`, the network interface will be attached to an
+#             internal network rather than a host-only adapter.
+# * `auto_config`: If set to `false`, Vagrant will not attempt to configure
+#                  the network interface.
+#
+# To enable *provisioning*, add these hosts to site.yml and assign some roles.
+# If you run on *Windows*, you should also add the host names to
+# `ansible/inventory_dev`
 ---
--
-  name: srv001
+- name: srv001
   ip: 192.168.56.10
--
-  name: srv002
+
+- name: srv002
   ip: 192.168.56.11
 
