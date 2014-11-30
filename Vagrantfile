@@ -42,8 +42,12 @@ def network_options(host)
     netmask: host['netmask'] ||= '255.255.255.0'
   }
 
+  # TODO: if ip: wasn't specified, add
+  #   options[:type] = 'dhcp'
+  # See https://docs.vagrantup.com/v2/networking/private_network.html
+
   if host.has_key?('mac')
-    options[:mac] = host['mac']
+    options[:mac] = host['mac'].gsub(/[-:]/, '')
   end
   if host.has_key?('auto_config')
     options[:auto_config] = host['auto_config']
