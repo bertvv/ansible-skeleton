@@ -16,21 +16,33 @@ Prerequisites on the VirtualBox host system:
 
 First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/box-cutter/centos-vm).
 
-The `vagrant_hosts.yml` file specifies the boxen that are controlled by `Vagrantfile`. You should at least specify a `name:` and `ip:` for each. If the network mask is not '255.255.255.0', you should specify `netmask:` as well.
+The `ansible/` directory contains the Ansible configuration, and should at least contain the standard `site.yml`.
 
-The `ansible/` directory contains the Ansible configuration, and should at least contain the standard `site.yml`. You can (and probably should) replace this directory by a Git submodule that can be used in your production environment.
+The `vagrant_hosts.yml` file specifies the boxen that are controlled by `Vagrantfile`. You should at least specify a `name:` and `ip:` for each. A host-only adapter is created and the given IP assigned to that interface. Other optional settings that can be specified:
 
-For now, two hosts are defined: `srv001` and `srv002`. If you want to add a box, you should edit these files:
+* `netmask`: by default, the network mask is `255.255.255.0`. If you want another one, it should be specified.
+* `mac`: The MAC address to be assigned to the NIC. Several notations are accepted, including "Linux-style" (`00:11:22:33:44:55`) and "Windows-style" (`00-11-22-33-44-55`). The separator characters can be omitted altogether (`001122334455`).
+* `intnet`: If set to `true`, the network interface will be attached to an internal network rather than a host-only adapter.
+* `auto_config`: If set to `false`, Vagrant will not attempt to configure the network interface.
 
-* `vagrant_hosts.yml` so a Vagrant box is created, e.g.:
+For now, two hosts are defined: `srv001` and `srv002`. If you want to add new box(en), you should edit the following files:
 
-  ```yaml
-  - name: srv003
-    ip: 192.168.56.13
-  - name: srv004
-    ip: 172.16.0.5
-    netmask: 255.255.0.0
-  ```
+* `vagrant_hosts.yml` so a Vagrant box is created. A few examples that also illustrate the optional settings.
+
+```yaml
+- name: srv003
+  ip: 192.168.56.13
+  auto_config: false
+
+- name: srv004
+  ip: 172.16.0.5
+  netmask: 255.255.0.0
+  intnet: true
+
+- name: srv005
+  ip: 192.168.56.14
+  mac: "00:03:DE:AD:BE:EF"
+```
 
 * `inventory_dev`. If your host system is Windows, this is the Ansible inventory file for your development environment. Linux and Mac hosts will use Vagrant's automatically generated inventory file in `.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`.
 * `site.yml` to assign roles to your boxen.
