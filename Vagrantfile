@@ -29,8 +29,9 @@ def provision_ansible(config)
   end
 end
 
-# Set options for the network interface configuration. A host should at least
-# get an IP address. Other values are optional, and can include:
+# Set options for the network interface configuration. All values are
+# optional, and can include:
+# - ip (default = DHCP)
 # - netmask (default value = 255.255.255.0
 # - mac
 # - auto_config (if false, Vagrant will not configure this network interface
@@ -38,13 +39,14 @@ end
 #   host-only adapter)
 def network_options(host)
   options = {
-    ip: host['ip'],
     netmask: host['netmask'] ||= '255.255.255.0'
   }
 
-  # TODO: if ip: wasn't specified, add
-  #   options[:type] = 'dhcp'
-  # See https://docs.vagrantup.com/v2/networking/private_network.html
+  if host.has_key?('ip')
+    options[:ip] = host['ip']
+  else
+    options[:type] = 'dhcp'
+  end
 
   if host.has_key?('mac')
     options[:mac] = host['mac'].gsub(/[-:]/, '')

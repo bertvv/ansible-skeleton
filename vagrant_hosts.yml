@@ -2,8 +2,10 @@
 #
 # List of hosts to be created by Vagrant. This file controls the Vagrant
 # settings, specifically host name and network settings. You should at least
-# have a `name:` and `ip:`.  Other optional settings that can be specified:
+# have a `name:`.  Other optional settings that can be specified:
 #
+# * `ip`: by default, an IP will be assigned by DHCP. If you want a fixed
+#         addres, specify it.
 # * `netmask`: by default, the network mask is `255.255.255.0`. If you want
 #              another one, it should be specified.
 # * `mac`: The MAC address to be assigned to the NIC. Several notations are
@@ -23,5 +25,4 @@
   ip: 192.168.56.10
 
 - name: srv002
-  ip: 192.168.56.11
 
