@@ -38,12 +38,11 @@ end
 # - intnet (if true, an internal network adapter will be created instead of a
 #   host-only adapter)
 def network_options(host)
-  options = {
-    netmask: host['netmask'] ||= '255.255.255.0'
-  }
+  options = {}
 
   if host.has_key?('ip')
     options[:ip] = host['ip']
+    options[:netmask] = host['netmask'] ||= '255.255.255.0'
   else
     options[:type] = 'dhcp'
   end
