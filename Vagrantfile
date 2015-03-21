@@ -79,17 +79,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   hosts.each do |host|
     config.vm.define host['name'] do |node|
-
       node.vm.hostname = host['name']
-
       node.vm.network :private_network, network_options(host)
-
-      if is_windows
-        node.vm.synced_folder 'ansible/', '/etc/ansible', mount_options: ["fmode=666"]
-      end
-
       custom_synced_folders(node.vm, host)
-
       node.vm.provider :virtualbox do |vb|
         vb.name = host['name']
       end

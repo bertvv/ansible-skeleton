@@ -11,8 +11,8 @@
 # @version 1.0
 #
 
-playbook=/etc/ansible/site.yml
-inventory=/etc/ansible/inventory_dev
+playbook=/vagrant/ansible/site.yml
+inventory=/vagrant/scripts/inventory.py
 
 if [ ! -f ${playbook} ]; then
   echo "Cannot find Ansible playbook."
@@ -40,9 +40,9 @@ if [ ! -f /usr/bin/ansible ]; then
   pip install ansible
 fi
 
-ansible-playbook ${playbook} \
-  --inventory-file=${inventory} \
-  --limit=${HOSTNAME} \
+ansible-playbook "${playbook}" \
+  --inventory-file="${inventory}" \
+  --limit="${HOSTNAME}" \
   --extra-vars "is_windows=true" \
   --connection=local \
   "$@"

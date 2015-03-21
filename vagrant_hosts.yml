@@ -22,8 +22,6 @@
 #   a colon, e.g. `:owner:`.
 #
 # To enable *provisioning*, add these hosts to site.yml and assign some roles.
-# If you run on *Windows*, you should also add the host names to
-# `ansible/inventory_dev`
 #
 # [1] http://docs.vagrantup.com/v2/synced-folders/basic_usage.html
 ---

@@ -61,7 +61,6 @@ For now, two hosts are defined: `srv001` and `srv002`. If you want to add new bo
   mac: "00:03:DE:AD:BE:EF"
 ```
 
-* `ansible/inventory_dev`. If your host system is Windows, this is the Ansible inventory file for your development environment. Linux and Mac hosts will use Vagrant's automatically generated inventory file in `.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory`.
 * `site.yml` to assign roles to your boxen.
 
 ## Running tests with BATS
