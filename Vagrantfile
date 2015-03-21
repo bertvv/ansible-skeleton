@@ -65,6 +65,7 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = 'centos70-nocm'
+  config.ssh.insert_key = false # Keep using the insecure key
 
   hosts.each do |host|
     config.vm.define host['name'] do |node|
