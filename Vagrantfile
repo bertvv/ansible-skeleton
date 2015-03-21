@@ -60,6 +60,16 @@ def network_options(host)
   options
 end
 
+def custom_synced_folders(vm, host)
+  if host.has_key?('synced_folders')
+    folders = host['synced_folders']
+
+    folders.each do |folder|
+      vm.synced_folder folder['src'], folder['dest'], folder['options']
+    end
+  end
+end
+
 # }}}
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -77,6 +87,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       if is_windows
         node.vm.synced_folder 'ansible/', '/etc/ansible', mount_options: ["fmode=666"]
       end
+
+      custom_synced_folders(node.vm, host)
 
       node.vm.provider :virtualbox do |vb|
         vb.name = host['name']
