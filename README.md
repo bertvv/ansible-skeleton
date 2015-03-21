@@ -8,7 +8,7 @@ The goal of this skeleton is having an Ansible setup that works without modifica
 Prerequisites on the VirtualBox host system:
 
 * VirtualBox (>= 4.3.x)
-* Vagrant (>= 1.6.x)
+* Vagrant (>= 1.7.x)
 * Ruby (>= 2.0.0)
 * Git (>= 1.9.x) and for Windows hosts also Git Bash
 
