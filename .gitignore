@@ -3,6 +3,9 @@
 # Hidden Vagrant-directory
 .vagrant
 
+# Python development
+.ropeproject
+
 # Backup files (e.g. Vim, Gedit, etc.)
 *~
 
