@@ -22,7 +22,7 @@ def usage():
 
 def list_hosts():
     host_name = socket.gethostname()
-    print "{ \"%s\": [\"127.0.0.1\"]}" % host_name
+    print "{ \"all\": { \"hosts\": [\"%s\"] } }" % host_name
 
 
 def host_info(host):
