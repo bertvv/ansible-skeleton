@@ -7,5 +7,4 @@
 
 - hosts: srv002
   sudo: true
-  roles:
-    - common
+  roles: []
