@@ -1,12 +1,12 @@
 # -*- mode: ruby -*-
-# vi: set ft=ruby :
+# vi: ft=ruby :
 
 require 'rbconfig'
 require 'yaml'
 
-# Set the base box here
-BASE_BOX = 'centos71-nocm'
-BASE_BOX_URL = 'https://tinfbo2.hogent.be/pub/vm/centos71-nocm-1.0.16.box'
+# Set your default base box here
+DEFAULT_BASE_BOX = 'centos71-nocm'
+DEFAULT_BASE_BOX_URL = 'https://tinfbo2.hogent.be/pub/vm/centos71-nocm-1.0.16.box'
 
 #
 # No changes needed below this point
@@ -84,21 +84,18 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = BASE_BOX
-  config.vm.box_url = BASE_BOX_URL
-  config.ssh.insert_key = false # Keep using the insecure key
-
   hosts.each do |host|
-    config.vm.provider 'virtualbox' do |vb|
-      vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
-    end
-
     config.vm.define host['name'] do |node|
+      node.vm.box = host['box'] ||= DEFAULT_BASE_BOX
+      node.vm.box_url = host['box_url'] ||= DEFAULT_BASE_BOX_URL
+
       node.vm.hostname = host['name']
       node.vm.network :private_network, network_options(host)
       custom_synced_folders(node.vm, host)
+
       node.vm.provider :virtualbox do |vb|
         vb.name = host['name']
+        vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
     end
   end
