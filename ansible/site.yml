@@ -2,8 +2,7 @@
 ---
 - hosts: srv001
   sudo: true
-  roles:
-    - common
+  roles: []
 
 - hosts: srv002
   sudo: true

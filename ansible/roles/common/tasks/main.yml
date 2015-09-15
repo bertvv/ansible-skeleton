@@ -1,6 +1,0 @@
-# roles/common/main.yml
----
-- name: Install common packages
-  yum: pkg={{item}} state=installed
-  with_items:
-    - libselinux-python
