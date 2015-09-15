@@ -2,7 +2,7 @@
 #
 # Author:   Bert Van Vreckem <bert.vanvreckem@gmail.com>
 #
-# Initialise an Ansible project, based on 
+# Initialise an Ansible project, based on
 # https://github.com/bertvv/ansible-skeleton/
 
 set -u # abort on unbound variable
@@ -26,7 +26,7 @@ install_role() {
   ansible-galaxy install -p ansible/roles "${1}"
 
   if [ "$?" -ne "0" ]; then
-    echo " ## This does not seem to be an Ansible role. Trying Github"
+    echo " ## This role does not seem to be on Ansible Galaxy. Trying Github"
     user=${1%%\.*}
     role=${1##*\.}
     rolename=${role##ansible-}
@@ -71,6 +71,7 @@ git init "${project}"
 cd "${project}"
 git add .
 git commit --message "Initial commit, Ansible skeleton"
+mkdir ansible/host_vars/
 
 for role in "${@}"; do
   install_role "${role}"
