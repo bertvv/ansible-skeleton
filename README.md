@@ -1,24 +1,55 @@
 # Ansible Skeleton
 
-An opinionated skeleton for an Ansible project with a development environment
-powered by Vagrant. This should work on Linux, MacOS *and* Windows.
+An opinionated skeleton that considerably simplifies setting up an Ansible project with a development environment powered by Vagrant.
 
-The goal of this skeleton is having an Ansible setup that works without modification both in the development environment (Vagrant + VirtualBox) and production. Therefore, the Ansible project is set up according to their [best practices](http://docs.ansible.com/playbooks_best_practices.html). This also implies the possibility of a multi-VM Vagrant setup.
+Advantages include:
 
-Prerequisites on the VirtualBox host system:
+- It works on Linux, MacOS **and** Windows (that is normally unsupported by Ansible)
+- You don't need to edit the `Vagrantfile`. Hosts are defined in a simple Yaml format (see below). Setting up a multiple-VM Vagrant environment becomes almost trivial!
 
-* VirtualBox (>= 4.3.x)
-* Vagrant (>= 1.7.x)
-* Ruby (>= 2.0.0)
-* Git (>= 1.9.x) and for Windows hosts also Git Bash
+## Installation
+
+Prerequisites on the management node:
+
+* [VirtualBox](https://virtualbox.org/) (>= 4.3.x)
+* [Vagrant](https://vagrantup.com/) (>= 1.7.x)
+* [Git](https://git-scm.com/) (>= 1.9.x) and for Windows hosts also Git Bash. If you install Git with default settings (i.e. always click "Next" in the installer), you should be fine.
+
+You can either clone this project or use the provided initialization script.
+
+When cloning, choose another name for the target directory!
+
+```ShellSession
+$ git clone https://github.com/bertvv/ansible-skeleton.git my-ansible-project
+```
+
+On Windows, it is important to keep line endings in the Linux format:
+
+```ShellSession
+$ git clone --config core.autocrlf=input https://github.com/bertvv/ansible-skeleton.git my-ansible-project
+```
+
+An [initialization script](scripts/ansible-init.sh) is provided that simplifies the process. Download it and put it somewhere in your `${PATH}` (removing the extension `.sh`).
+
+```ShellSession
+$ ansible-init my-ansible-project
+```
+
+This will download the latest version of the skeleton from Github, initialize a Git repository, do the first commit, and, optionally, install any specified role.
+
+```ShellSession
+$ ansible-init my-ansible-project bertvv.el7 bertvv.httpd
+```
+
+This will create the skeleton and install roles `bertvv.el7` and `bertvv.httpd` from Ansible Galaxy.
 
 ## Getting started
 
-First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/boxcutter/centos).
+First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/boxcutter/centos). This is the only time you need to edit the `Vagrantfile`.
 
 The `ansible/` directory contains the Ansible configuration, and should at least contain the standard `site.yml`.
 
-The `vagrant_hosts.yml` file specifies the boxen that are controlled by `Vagrantfile`. You should at least specify a `name:`, other settings (see below) are optional. A host-only adapter is created and the given IP assigned to that interface. Other optional settings that can be specified:
+The `vagrant_hosts.yml` file specifies the nodes that are controlled by Vagrant. You should at least specify a `name:`, other settings (see below) are optional. A host-only adapter is created and the given IP assigned to that interface. Other optional settings that can be specified:
 
 * `netmask`: by default, the network mask is `255.255.255.0`. If you want another one, it should be specified.
 * `mac`: The MAC address to be assigned to the NIC. Several notations are accepted, including "Linux-style" (`00:11:22:33:44:55`) and "Windows-style" (`00-11-22-33-44-55`). The separator characters can be omitted altogether (`001122334455`).
@@ -42,7 +73,7 @@ The `vagrant_hosts.yml` file specifies the boxen that are controlled by `Vagrant
 
 ## Adding hosts
 
-For now, two hosts are defined: `srv001` and `srv002`. If you want to add new box(en), you should edit the following files:
+For now, two hosts are defined: `srv001` and `srv002`. If you want to add new nodes, you should edit the following files:
 
 * `vagrant_hosts.yml` so a Vagrant box is created. A few examples that also illustrate the optional settings.
 
@@ -61,7 +92,15 @@ For now, two hosts are defined: `srv001` and `srv002`. If you want to add new bo
   mac: "00:03:DE:AD:BE:EF"
 ```
 
-* `site.yml` to assign roles to your boxen.
+* `site.yml` to assign roles to your nodes, e.g.:
+
+```Yaml
+- host: srv003
+  sudo: true
+  roles:
+    - bertvv.el7
+    - bertvv.httpd
+```
 
 ## Running tests with BATS
 
