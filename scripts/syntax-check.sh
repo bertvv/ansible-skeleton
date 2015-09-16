@@ -15,5 +15,5 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Script proper
 
-${script_dir}/playbook.sh ${script_dir}/../ansible/site.yml --syntax-check
+${script_dir}/provision.sh ${script_dir}/../ansible/site.yml --syntax-check
 
