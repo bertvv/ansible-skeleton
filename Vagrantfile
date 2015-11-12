@@ -5,8 +5,8 @@ require 'rbconfig'
 require 'yaml'
 
 # Set your default base box here
-DEFAULT_BASE_BOX = 'centos71-nocm'
-DEFAULT_BASE_BOX_URL = 'https://tinfbo2.hogent.be/pub/vm/centos71-nocm-1.0.16.box'
+DEFAULT_BASE_BOX = 'bertvv/centos71'
+#DEFAULT_BASE_BOX_URL = 'https://example.com/path/to/base.box'
 
 #
 # No changes needed below this point
