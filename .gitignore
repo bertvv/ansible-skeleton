@@ -9,6 +9,9 @@
 # Backup files (e.g. Vim, Gedit, etc.)
 *~
 
+# Compiled Python
+*.pyc
+
 # BATS installation
 test/bats/
 
