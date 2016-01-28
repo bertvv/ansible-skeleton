@@ -6,11 +6,6 @@ require 'yaml'
 
 # Set your default base box here
 DEFAULT_BASE_BOX = 'bertvv/centos71'
-#DEFAULT_BASE_BOX_URL = 'https://example.com/path/to/base.box'
-
-#
-# No changes needed below this point
-#
 
 VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
@@ -87,14 +82,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   hosts.each do |host|
     config.vm.define host['name'] do |node|
       node.vm.box = host['box'] ||= DEFAULT_BASE_BOX
-      node.vm.box_url = host['box_url'] ||= DEFAULT_BASE_BOX_URL
+      if node has_key? box_url
+        node.vm.box_url = host['box_url']
+      end
 
       node.vm.hostname = host['name']
       node.vm.network :private_network, network_options(host)
       custom_synced_folders(node.vm, host)
 
       node.vm.provider :virtualbox do |vb|
+        # Remove this to keep default VM name
         vb.name = host['name']
+        # If assigning VMs to a group fails, remove the following line
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
     end
