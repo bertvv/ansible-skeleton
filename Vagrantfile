@@ -11,7 +11,7 @@ VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
 
 
-hosts = YAML.load_file('vagrant_hosts.yml')
+hosts = YAML.load_file('vagrant-hosts.yml')
 
 # {{{ Helper functions
 
