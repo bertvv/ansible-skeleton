@@ -82,7 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   hosts.each do |host|
     config.vm.define host['name'] do |node|
       node.vm.box = host['box'] ||= DEFAULT_BASE_BOX
-      if node has_key? box_url
+      if node.has_key? 'box_url'
         node.vm.box_url = host['box_url']
       end
 
