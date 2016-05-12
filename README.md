@@ -9,6 +9,8 @@ Advantages include:
 
 See also the companion projects [ansible-role-skeleton](https://github.com/bertvv/ansible-role-skeleton) (scaffolding code for Ansible roles) and [ansible-toolbox](https://github.com/bertvv/ansible-toolbox/) (useful scripts to be used in combination with the skeleton-projects).
 
+If you like/use this role, please consider giving it a star. Thanks!
+
 ## Installation
 
 On the management node, make sure you have installed recent versions of:
@@ -52,7 +54,7 @@ This will create the skeleton and install roles `bertvv.el7` and `bertvv.httpd` 
 
 First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/boxcutter/centos). This is the only time you need to edit the `Vagrantfile`.
 
-The `ansible/` directory contains the Ansible configuration, and should at least contain the standard `site.yml`.
+The `ansible/` directory contains the Ansible configuration, and is structured according to [Ansible's best practices](https://docs.ansible.com/ansible/playbooks_best_practices.html). It should at least contain the standard `site.yml`.
 
 The `vagrant-hosts.yml` file specifies the nodes that are controlled by Vagrant. You should at least specify a `name:`, other settings (see below) are optional. A host-only adapter is created and the given IP assigned to that interface. Other optional settings that can be specified:
 
@@ -79,7 +81,7 @@ The `vagrant-hosts.yml` file specifies the nodes that are controlled by Vagrant.
 
 ## Adding hosts
 
-For now, two hosts are defined: `srv001` and `srv002`. If you want to add new nodes, you should edit the following files:
+Initially, two hosts are defined as an example: `srv001` and `srv002`. If you want to add new nodes, you should edit the following files:
 
 - `vagrant-hosts.yml` so a Vagrant box is created. A few examples that also illustrate the optional settings.
 
