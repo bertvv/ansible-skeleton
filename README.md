@@ -5,7 +5,7 @@ An opinionated skeleton that considerably simplifies setting up an Ansible proje
 Advantages include:
 
 - It works on Linux, MacOS **and** Windows (that is normally unsupported by Ansible)
-- You don't need to edit the `Vagrantfile`. Hosts are defined in a simple Yaml format (see below). Setting up a multiple-VM Vagrant environment becomes almost trivial. I gave a [lightning talk about this](https://youtu.be/qJ0VNO6z68M) at [Config Management Camp 2016 Ghent](https://cfgmgmtcamp.eu/) ([slides here](http://www.slideshare.net/bertvanvreckem/one-vagrantfile-to-rule-them-all)).
+- You don't need to edit the `Vagrantfile`. Hosts are defined in a simple Yaml format (see below). Setting up a multiple-VM Vagrant environment becomes almost trivial. I gave a [lightning talk about this](https://youtu.be/qJ0VNO6z68M) at [Config Management Camp 2016 Ghent](http://cfgmgmtcamp.eu/) ([slides here](http://www.slideshare.net/bertvanvreckem/one-vagrantfile-to-rule-them-all)).
 
 See also the companion projects [ansible-role-skeleton](https://github.com/bertvv/ansible-role-skeleton) (scaffolding code for Ansible roles) and [ansible-toolbox](https://github.com/bertvv/ansible-toolbox/) (useful scripts to be used in combination with the skeleton-projects).
 
