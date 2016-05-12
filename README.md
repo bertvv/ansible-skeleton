@@ -5,7 +5,7 @@ An opinionated skeleton that considerably simplifies setting up an Ansible proje
 Advantages include:
 
 - It works on Linux, MacOS **and** Windows (that is normally unsupported by Ansible)
-- You don't need to edit the `Vagrantfile`. Hosts are defined in a simple Yaml format (see below). Setting up a multiple-VM Vagrant environment becomes almost trivial.
+- You don't need to edit the `Vagrantfile`. Hosts are defined in a simple Yaml format (see below). Setting up a multiple-VM Vagrant environment becomes almost trivial. I gave a [lightning talk about this](https://youtu.be/qJ0VNO6z68M) at Config Management Camp 2016 Ghent ([slides here](http://www.slideshare.net/bertvanvreckem/one-vagrantfile-to-rule-them-all)).
 
 See also the companion projects [ansible-role-skeleton](https://github.com/bertvv/ansible-role-skeleton) (scaffolding code for Ansible roles) and [ansible-toolbox](https://github.com/bertvv/ansible-toolbox/) (useful scripts to be used in combination with the skeleton-projects).
 
@@ -52,9 +52,8 @@ This will create the skeleton and install roles `bertvv.el7` and `bertvv.httpd` 
 
 ## Getting started
 
-First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/boxcutter/centos). This is the only time you need to edit the `Vagrantfile`.
+First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/boxcutter/centos). This is probably the only time you need to edit the `Vagrantfile`.
 
-The `ansible/` directory contains the Ansible configuration, and is structured according to [Ansible's best practices](https://docs.ansible.com/ansible/playbooks_best_practices.html). It should at least contain the standard `site.yml`.
 
 The `vagrant-hosts.yml` file specifies the nodes that are controlled by Vagrant. You should at least specify a `name:`, other settings (see below) are optional. A host-only adapter is created and the given IP assigned to that interface. Other optional settings that can be specified:
 
@@ -78,6 +77,8 @@ The `vagrant-hosts.yml` file specifies the nodes that are controlled by Vagrant.
         :group: root
         :mount_options: ['dmode=0755', 'fmode=0644']
 ```
+
+The `ansible/` directory contains the Ansible configuration, and should be structured according to [Ansible's best practices](https://docs.ansible.com/ansible/playbooks_best_practices.html). It should at least contain the standard `site.yml`.
 
 ## Adding hosts
 
