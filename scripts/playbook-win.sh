@@ -26,18 +26,16 @@ fi
 
 # Install Ansible and its dependencies if it's not installed already.
 if [ ! -f /usr/bin/ansible ]; then
-  echo "Installing Ansible dependencies and Git."
-  yum install -y gcc git python python-devel
+  echo "Installing Ansible dependencies and build tools."
+  yum install -y gcc git python-devel libffi-devel openssl-devel
   echo "Installing pip via easy_install."
-  wget http://peak.telecommunity.com/dist/ez_setup.py
-  python ez_setup.py && rm -f ez_setup.py
   easy_install pip
   # Make sure setuptools are installed crrectly.
-  pip install setuptools --no-use-wheel --upgrade
-  echo "Installing required python modules."
-  pip install paramiko pyyaml jinja2 markupsafe
+  pip install setuptools --no-binary :all: --upgrade
   echo "Installing Ansible."
   pip install ansible
+  echo "Ansible installed:"
+  ansible --version
 fi
 
 ansible-playbook "${playbook}" \
