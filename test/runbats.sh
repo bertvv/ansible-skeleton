@@ -49,7 +49,9 @@ find_tests() {
     max_depth="-maxdepth $2"
   fi
 
-  local tests=$(find "$1" ${max_depth} -type f -name "${test_file_pattern}" -printf '%p\n' 2> /dev/null)
+  local tests
+  tests=$(find "$1" "${max_depth}" -type f -name "${test_file_pattern}" -printf '%p\n' 2> /dev/null)
+
 
   echo "${tests}"
 }
