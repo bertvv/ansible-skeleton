@@ -5,7 +5,7 @@ require 'rbconfig'
 require 'yaml'
 
 # Set your default base box here
-DEFAULT_BASE_BOX = 'bertvv/centos71'
+DEFAULT_BASE_BOX = 'bertvv/centos72'
 
 VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
