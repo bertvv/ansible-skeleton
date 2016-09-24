@@ -29,8 +29,7 @@
   ip: 192.168.56.10
 
 - name: srv002
-  box: fedora22-nocm
-  box_url: https://tinfbo2.hogent.be/pub/vm/fedora22-nocm-1.0.15.box
+  box: bertvv/fedora24
   synced_folders:
     - src: test
       dest: /tmp/test
