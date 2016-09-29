@@ -27,7 +27,7 @@ fi
 # Install Ansible and its dependencies if it's not installed already.
 if [ ! -f /usr/bin/ansible ]; then
   echo "Installing Ansible dependencies and build tools."
-  yum install -y gcc git python-devel libffi-devel openssl-devel
+  yum install -y gcc git python-devel libffi-devel openssl-devel python-setuptools
   echo "Installing pip via easy_install."
   easy_install pip
   # Make sure setuptools are installed crrectly.
