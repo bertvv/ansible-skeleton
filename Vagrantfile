@@ -80,9 +80,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       custom_synced_folders(node.vm, host)
 
       node.vm.provider :virtualbox do |vb|
-        # Remove this to keep default VM name
-        vb.name = host['name']
-        # If assigning VMs to a group fails, remove the following line
+        # WARNING: if the name of the current directory is the same as the
+        # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
     end
