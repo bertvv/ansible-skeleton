@@ -26,7 +26,7 @@ def provision_ansible(config)
   if run_locally?
     # Provisioning configuration for shell script.
     config.vm.provision 'shell' do |sh|
-      sh.path = 'scripts/playbook-win.sh'
+      sh.path = 'scripts/run-playbook-locally.sh'
     end
   else
     # Provisioning configuration for Ansible (for Mac/Linux hosts).
