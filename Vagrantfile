@@ -1,6 +1,10 @@
-# -*- mode: ruby -*-
-# vi: ft=ruby :
-
+# One Vagrantfile to rule them all!
+#
+# This is a generic Vagrantfile that can be used without modification in
+# a variety of situations. Hosts and their properties are specified in
+# `vagrant-hosts.yml`.
+#
+# See https://github.com/bertvv/ansible-skeleton/ for details
 require 'rbconfig'
 require 'yaml'
 
@@ -96,3 +100,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   provision_ansible(config)
 end
+
+# -*- mode: ruby -*-
+# vi: ft=ruby :
