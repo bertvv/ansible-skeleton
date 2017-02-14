@@ -99,6 +99,7 @@ Initially, two hosts are defined as an example: `srv001` and `srv002`. If you wa
 - name: srv005
   ip: 192.168.56.14
   mac: "00:03:DE:AD:BE:EF"
+  playbook: server.yml  # defaults to site.yml
 ```
 
 - `site.yml` to assign roles to your nodes, e.g.:

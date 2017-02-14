@@ -22,7 +22,7 @@ hosts = YAML.load_file('vagrant-hosts.yml')
 
 # {{{ Helper functions
 
-def provision_ansible(config)
+def provision_ansible(config, host)
   if run_locally?
     # Provisioning configuration for shell script.
     config.vm.provision 'shell' do |sh|
@@ -31,7 +31,9 @@ def provision_ansible(config)
   else
     # Provisioning configuration for Ansible (for Mac/Linux hosts).
     config.vm.provision 'ansible' do |ansible|
-      ansible.playbook = 'ansible/site.yml'
+      ansible.playbook = host.key?('playbook') ?
+          "ansible/#{host['playbook']}" :
+          "ansible/site.yml"
       ansible.sudo = true
     end
   end
@@ -96,9 +98,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
+      provision_ansible(config, host)
     end
   end
-  provision_ansible(config)
 end
 
 # -*- mode: ruby -*-
