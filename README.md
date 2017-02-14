@@ -148,4 +148,7 @@ The Windows bootstrap script is based on the MIT licensed work of:
 - Kawsar Saiyeed: https://github.com/KSid/windows-vagrant-ansible
 - Jeff Geerling: https://github.com/geerlingguy/JJG-Ansible-Windows
 
+## Contributors
 
+- [Bert Van Vreckem](https://github.com/bertvv/) (maintainer)
+- [Brian Stewart](https://github.com/thecodesmith)
