@@ -44,7 +44,7 @@ def run_locally?
 end
 
 def windows_host?
-  RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+  Vagrant::Util::Platform.windows?
 end
 
 # Set options for the network interface configuration. All values are
