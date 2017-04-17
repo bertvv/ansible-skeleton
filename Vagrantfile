@@ -82,6 +82,27 @@ end
 
 # }}}
 
+
+# Set options for shell provisioners to be run always. If you choose to include
+# it you have to add a cmd variable with the command as data.
+# 
+# Use case: start symfony dev-server
+#
+# example: 
+# shell_always:
+#    - cmd: php /srv/google-dev/bin/console server:start 192.168.52.25:8080 --force
+def shell_provisioners_always(vm, host)
+  if host.has_key?('shell_always')
+    scripts = host['shell_always']
+
+    scripts.each do |script|
+      vm.provision "shell", inline: script['cmd'], run: "always"
+    end
+  end
+end
+
+# }}}
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
   hosts.each do |host|
@@ -92,6 +113,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.hostname = host['name']
       node.vm.network :private_network, network_options(host)
       custom_synced_folders(node.vm, host)
+      shell_provisioners_always(node.vm, host)
 
       node.vm.provider :virtualbox do |vb|
         # WARNING: if the name of the current directory is the same as the
