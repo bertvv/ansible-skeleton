@@ -14,8 +14,11 @@
 #          be omitted altogether (`001122334455`).
 # * `intnet`: If set to `true`, the network interface will be attached to an
 #             internal network rather than a host-only adapter.
+# * `forwarded_ports`: A list of forwarded ports. Required items are `host` and 'guest`
 # * `auto_config`: If set to `false`, Vagrant will not attempt to configure
 #                  the network interface.
+# * `shell_always`: a list of shell scripts to be run after boot of the
+#                   machine. Required field is `cmd` having the path
 # * `synced_folders`: A list of dicts that specify synced folders. `src` and
 #   `dest` are mandatory, `options:` are optional. For the possible options,
 #   see the Vagrant documentation[1]. Keys of options should be prefixed with
