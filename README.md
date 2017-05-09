@@ -152,3 +152,4 @@ The Windows bootstrap script is based on the MIT licensed work of:
 
 - [Bert Van Vreckem](https://github.com/bertvv/) (maintainer)
 - [Brian Stewart](https://github.com/thecodesmith)
+- [Jeroen De Meerleer](https://github.com/JeroenED)
