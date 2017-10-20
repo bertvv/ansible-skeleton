@@ -18,5 +18,9 @@ test/bats/
 # Vagrant base boxes (you never know when someone puts one in the repository)
 *.box
 
-# Ignore role directories from Ansible Galaxy (user.role notation)
+# Directories containing roles imported from Ansible Galaxy
+# (user.role notation)
 ansible/roles/*.*
+
+# Ansible Retry-files
+*.retry
