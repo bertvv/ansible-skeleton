@@ -34,7 +34,7 @@ def provision_ansible(config, host)
       ansible.playbook = host.key?('playbook') ?
           "ansible/#{host['playbook']}" :
           "ansible/site.yml"
-      ansible.sudo = true
+      ansible.become = true
     end
   end
 end
