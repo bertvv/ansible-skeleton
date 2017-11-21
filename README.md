@@ -106,9 +106,9 @@ Initially, two hosts are defined as an example: `srv001` and `srv002`. If you wa
 
 ```Yaml
 - host: srv003
-  sudo: true
+  become: true
   roles:
-    - bertvv.el7
+    - bertvv.rh-base
     - bertvv.httpd
 ```
 
