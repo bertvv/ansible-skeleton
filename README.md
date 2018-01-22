@@ -114,16 +114,15 @@ Initially, two hosts are defined as an example: `srv001` and `srv002`. If you wa
 ## Run with custom vagrant-hosts file
 
 ```ShellSession
-VAGRANTS_HOST=='custom-vagrant-hosts.yml' vagrant up
+VAGRANTS_HOST='custom-vagrant-hosts.yml' vagrant up
 ```
 or
 
 ```ShellSession
 # for Linux
-export VAGRANTS_HOST=='custom-vagrant-hosts.yml'
+export VAGRANTS_HOST='custom-vagrant-hosts.yml'
 vagrant up
 ```
-
 
 ## Running tests with BATS
 
