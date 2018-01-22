@@ -8,6 +8,9 @@
 require 'rbconfig'
 require 'yaml'
 
+# set default LC_ALL for all BOXES
+ENV["LC_ALL"] = "en_US.UTF-8"
+
 # Set your default base box here
 DEFAULT_BASE_BOX = 'bento/centos-7.4'
 
@@ -18,7 +21,9 @@ PROJECT_NAME = '/' + File.basename(Dir.getwd)
 # instead of from the host machine (provided Ansible is installed).
 FORCE_LOCAL_RUN = false
 
-hosts = YAML.load_file('vagrant-hosts.yml')
+# set custom vagrant-hosts file
+vagranthosts = ENV['VAGRANTS_HOST'] ? ENV['VAGRANTS_HOST'] : 'vagrant-hosts.yml'
+hosts = YAML.load_file(File.join(__dir__, vagranthosts))
 
 # {{{ Helper functions
 
