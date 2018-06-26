@@ -2,14 +2,15 @@
 #
 # This is a generic Vagrantfile that can be used without modification in
 # a variety of situations. Hosts and their properties are specified in
-# `vagrant-hosts.yml`.
+# `vagrant-hosts.yml`. Provisioning is done by an Ansible playbook,
+# `ansible/site.yml`.
 #
 # See https://github.com/bertvv/ansible-skeleton/ for details
 require 'rbconfig'
 require 'yaml'
 
 # Set your default base box here
-DEFAULT_BASE_BOX = 'bento/centos-7.4'
+DEFAULT_BASE_BOX = 'bento/centos-7.5'
 
 VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
@@ -85,10 +86,10 @@ end
 
 # Set options for shell provisioners to be run always. If you choose to include
 # it you have to add a cmd variable with the command as data.
-# 
+#
 # Use case: start symfony dev-server
 #
-# example: 
+# example:
 # shell_always:
 #   - cmd: php /srv/google-dev/bin/console server:start 192.168.52.25:8080 --force
 def shell_provisioners_always(vm, host)
@@ -106,7 +107,7 @@ end
 
 # Adds forwarded ports to your vagrant machine so they are available from your phone
 #
-# example: 
+# example:
 #  forwarded_ports:
 #    - guest: 88
 #      host: 8080
