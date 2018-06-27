@@ -6,18 +6,23 @@
 # `ansible/site.yml`.
 #
 # See https://github.com/bertvv/ansible-skeleton/ for details
+
 require 'rbconfig'
 require 'yaml'
 
 # Set your default base box here
 DEFAULT_BASE_BOX = 'bento/centos-7.5'
 
-VAGRANTFILE_API_VERSION = '2'
-PROJECT_NAME = '/' + File.basename(Dir.getwd)
-
 # When set to `true`, Ansible will be forced to be run locally on the VM
 # instead of from the host machine (provided Ansible is installed).
 FORCE_LOCAL_RUN = false
+
+#
+# No changes needed below this point
+#
+
+VAGRANTFILE_API_VERSION = '2'
+PROJECT_NAME = '/' + File.basename(Dir.getwd)
 
 hosts = YAML.load_file('vagrant-hosts.yml')
 
@@ -104,8 +109,7 @@ end
 
 # }}}
 
-
-# Adds forwarded ports to your vagrant machine so they are available from your phone
+# Adds forwarded ports to your Vagrant machine
 #
 # example:
 #  forwarded_ports:
@@ -136,11 +140,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell_provisioners_always(node.vm, host)
       forwarded_ports(node.vm, host)
 
+      # Add VM to a VirtualBox group
       node.vm.provider :virtualbox do |vb|
         # WARNING: if the name of the current directory is the same as the
         # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
+      
+      # Run Ansible playbook for the VM
       provision_ansible(config, host)
     end
   end
