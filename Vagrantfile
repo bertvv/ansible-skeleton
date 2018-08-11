@@ -2,9 +2,11 @@
 #
 # This is a generic Vagrantfile that can be used without modification in
 # a variety of situations. Hosts and their properties are specified in
-# `vagrant-hosts.yml`.
+# `vagrant-hosts.yml`. Provisioning is done by an Ansible playbook,
+# `ansible/site.yml`.
 #
 # See https://github.com/bertvv/ansible-skeleton/ for details
+
 require 'rbconfig'
 require 'yaml'
 
@@ -12,14 +14,18 @@ require 'yaml'
 ENV["LC_ALL"] = "en_US.UTF-8"
 
 # Set your default base box here
-DEFAULT_BASE_BOX = 'bento/centos-7.4'
-
-VAGRANTFILE_API_VERSION = '2'
-PROJECT_NAME = '/' + File.basename(Dir.getwd)
+DEFAULT_BASE_BOX = 'bento/centos-7.5'
 
 # When set to `true`, Ansible will be forced to be run locally on the VM
 # instead of from the host machine (provided Ansible is installed).
 FORCE_LOCAL_RUN = false
+
+#
+# No changes needed below this point
+#
+
+VAGRANTFILE_API_VERSION = '2'
+PROJECT_NAME = '/' + File.basename(Dir.getwd)
 
 # set custom vagrant-hosts file
 vagranthosts = ENV['VAGRANTS_HOST'] ? ENV['VAGRANTS_HOST'] : 'vagrant-hosts.yml'
@@ -90,10 +96,10 @@ end
 
 # Set options for shell provisioners to be run always. If you choose to include
 # it you have to add a cmd variable with the command as data.
-# 
+#
 # Use case: start symfony dev-server
 #
-# example: 
+# example:
 # shell_always:
 #   - cmd: php /srv/google-dev/bin/console server:start 192.168.52.25:8080 --force
 def shell_provisioners_always(vm, host)
@@ -108,10 +114,9 @@ end
 
 # }}}
 
-
-# Adds forwarded ports to your vagrant machine so they are available from your phone
+# Adds forwarded ports to your Vagrant machine
 #
-# example: 
+# example:
 #  forwarded_ports:
 #    - guest: 88
 #      host: 8080
@@ -140,11 +145,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell_provisioners_always(node.vm, host)
       forwarded_ports(node.vm, host)
 
+      # Add VM to a VirtualBox group
       node.vm.provider :virtualbox do |vb|
         # WARNING: if the name of the current directory is the same as the
         # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
+      
+      # Run Ansible playbook for the VM
       provision_ansible(config, host)
     end
   end
