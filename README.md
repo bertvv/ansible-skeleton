@@ -152,13 +152,6 @@ test/
 
 On host `srv001`, the scripts `common.bats` and `web.bats` will be executed, on host `srv002`, it's `common.bats` and `db.bats`.
 
-## Acknowledgements
-
-The Windows bootstrap script is based on the MIT licensed work of:
-
-- [Kawsar Saiyeed](https://github.com/KSid/windows-vagrant-ansible)
-- [Jeff Geerling]( https://github.com/geerlingguy/JJG-Ansible-Windows)
-
 ## Contributors
 
 - [Bert Van Vreckem](https://github.com/bertvv/) (maintainer)

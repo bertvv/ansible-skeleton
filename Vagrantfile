@@ -35,18 +35,17 @@ hosts = YAML.load_file(File.join(__dir__, vagranthosts))
 
 def provision_ansible(config, host)
   if run_locally?
-    # Provisioning configuration for shell script.
-    config.vm.provision 'shell' do |sh|
-      sh.path = 'scripts/run-playbook-locally.sh'
-    end
+    ansible_mode = 'ansible_local'
   else
-    # Provisioning configuration for Ansible (for Mac/Linux hosts).
-    config.vm.provision 'ansible' do |ansible|
-      ansible.playbook = host.key?('playbook') ?
-          "ansible/#{host['playbook']}" :
-          "ansible/site.yml"
-      ansible.become = true
-    end
+    ansible_mode = 'ansible'
+  end
+  
+  # Provisioning configuration for Ansible (for Mac/Linux hosts).
+  config.vm.provision ansible_mode do |ansible|
+    ansible.playbook = host.key?('playbook') ?
+        "ansible/#{host['playbook']}" :
+        "ansible/site.yml"
+    ansible.become = true
   end
 end
 
