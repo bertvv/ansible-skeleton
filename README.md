@@ -25,13 +25,13 @@ You can either clone this project or use the provided initialization script.
 When cloning, choose another name for the target directory!
 
 ```ShellSession
-$ git clone https://github.com/bertvv/ansible-skeleton.git my-ansible-project
+> git clone https://github.com/bertvv/ansible-skeleton.git my-ansible-project
 ```
 
 On Windows, it is important to keep line endings in the Linux format:
 
 ```ShellSession
-$ git clone --config core.autocrlf=input https://github.com/bertvv/ansible-skeleton.git my-ansible-project
+> git clone --config core.autocrlf=input https://github.com/bertvv/ansible-skeleton.git my-ansible-project
 ```
 
 After cloning, it's best to remove the `.git` directory and initialise a new repository. The history of the skeleton code is irrelevant for your Ansible project...
@@ -39,13 +39,13 @@ After cloning, it's best to remove the `.git` directory and initialise a new rep
 You can find an [initialization script](https://github.com/bertvv/ansible-toolbox/blob/master/bin/atb-init.sh) in my [ansible-toolbox](https://github.com/bertvv/ansible-toolbox/) that automates the process (including creating an empty Git repository).
 
 ```ShellSession
-$ atb-init my-ansible-project
+> atb-init my-ansible-project
 ```
 
 This will download the latest version of the skeleton from Github, initialize a Git repository, do the first commit, and, optionally, install any specified role.
 
 ```ShellSession
-$ atb-init my-ansible-project bertvv.el7 bertvv.httpd
+> atb-init my-ansible-project bertvv.el7 bertvv.httpd
 ```
 
 This will create the skeleton and install roles `bertvv.el7` and `bertvv.httpd` from Ansible Galaxy.
@@ -53,7 +53,6 @@ This will create the skeleton and install roles `bertvv.el7` and `bertvv.httpd` 
 ## Getting started
 
 First, modify the `Vagrantfile` to select your favourite base box. I use a CentOS 7 base box, based on [Mischa Taylor's Packer template](https://github.com/boxcutter/centos). This is probably the only time you need to edit the `Vagrantfile`.
-
 
 The `vagrant-hosts.yml` file specifies the nodes that are controlled by Vagrant. You should at least specify a `name:`, other settings (see below) are optional. A host-only adapter is created and the given IP assigned to that interface. Other optional settings that can be specified:
 
@@ -112,6 +111,19 @@ Initially, two hosts are defined as an example: `srv001` and `srv002`. If you wa
     - bertvv.httpd
 ```
 
+## Run with custom vagrant-hosts file
+
+```ShellSession
+VAGRANTS_HOST='custom-vagrant-hosts.yml' vagrant up
+```
+or
+
+```ShellSession
+# for Linux
+export VAGRANTS_HOST='custom-vagrant-hosts.yml'
+vagrant up
+```
+
 ## Running tests with BATS
 
 There's a discussion on whether Unit tests are necessary for Ansible. Indeed, with its declarative nature, Ansible largely takes away the need to check for certain things independently from the playbook definitions. For a bit more background, be sure to read through [this discussion unit testing for Ansible](https://groups.google.com/forum/#!topic/ansible-project/7VhqDDtf6Js) on Google groups.
@@ -120,15 +132,15 @@ However, it is my opinion that playbooks don't cover everything (e.g. whether a 
 
 Put your BATS test scripts in the `test/` directory and they will become available on your guest VMs as a synced folder, mounted in `/vagrant/test`. Scripts that you want to run on each host should be stored in the `test/` directory itself, scripts for individual hosts should be stored in subdirectories with the same name as the host (see example below). Inside the VM, run
 
-```
-sudo /vagrant/test/runbats.sh
+```ShellSession
+> sudo /vagrant/test/runbats.sh
 ```
 
 to execute all tests relevant for that host. The script will install BATS if needed.
 
 Suppose the `test/` directory is structured like the example below:
 
-```
+```ShellSession
 test/
 ├── common.bats
 ├── runbats.sh
@@ -140,13 +152,12 @@ test/
 
 On host `srv001`, the scripts `common.bats` and `web.bats` will be executed, on host `srv002`, it's `common.bats` and `db.bats`.
 
-
 ## Acknowledgements
 
 The Windows bootstrap script is based on the MIT licensed work of:
 
-- Kawsar Saiyeed: https://github.com/KSid/windows-vagrant-ansible
-- Jeff Geerling: https://github.com/geerlingguy/JJG-Ansible-Windows
+- [Kawsar Saiyeed](https://github.com/KSid/windows-vagrant-ansible)
+- [Jeff Geerling]( https://github.com/geerlingguy/JJG-Ansible-Windows)
 
 ## Contributors
 
