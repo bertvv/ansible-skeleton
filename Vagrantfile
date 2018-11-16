@@ -28,20 +28,27 @@ VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
 
 # set custom vagrant-hosts file
-vagranthosts = ENV['VAGRANTS_HOST'] ? ENV['VAGRANTS_HOST'] : 'vagrant-hosts.yml'
-hosts = YAML.load_file(File.join(__dir__, vagranthosts))
+vagrant_hosts = ENV['VAGRANTS_HOST'] ? ENV['VAGRANTS_HOST'] : 'vagrant-hosts.yml'
+hosts = YAML.load_file(File.join(__dir__, vagrant_hosts))
+
+vagrant_groups = ENV['VAGRANT_GROUPS'] ? ENV['VAGRANT_GROUPS'] : 'vagrant-groups.yml'
+groups = YAML.load_file(File.join(__dir__, vagrant_groups))
 
 # {{{ Helper functions
 
-def provision_ansible(config, host)
+def provision_ansible(config, host, groups)
   if run_locally?
     ansible_mode = 'ansible_local'
   else
     ansible_mode = 'ansible'
   end
-  
+
   # Provisioning configuration for Ansible (for Mac/Linux hosts).
   config.vm.provision ansible_mode do |ansible|
+    ansible.compatibility_mode = '2.0'
+    if ! groups.nil?
+      ansible.groups = groups
+    end
     ansible.playbook = host.key?('playbook') ?
         "ansible/#{host['playbook']}" :
         "ansible/site.yml"
@@ -150,9 +157,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
-      
+
       # Run Ansible playbook for the VM
-      provision_ansible(config, host)
+      provision_ansible(config, host, groups)
     end
   end
 end

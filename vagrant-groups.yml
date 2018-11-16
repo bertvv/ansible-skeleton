@@ -1,0 +1,13 @@
+# Ansible group definitions
+#
+# This should be a dictionary with group names as keys and a list of hosts that
+# are members of the group as values. E.g.
+#
+# web:
+#   - web001
+#   - web002
+# db:
+#   - db001
+#
+# Leave the file empty if you do not want to define groups.
+---
