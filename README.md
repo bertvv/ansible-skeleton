@@ -135,17 +135,19 @@ web:
   - srv003
 ```
 
-## Run with custom vagrant-hosts file
+## Run with custom hosts/groups file
 
 ```ShellSession
-VAGRANTS_HOST='custom-vagrant-hosts.yml' vagrant up
+VAGRANT_HOSTS='custom-vagrant-hosts.yml' vagrant up
 ```
 or
 
 ```ShellSession
-export VAGRANTS_HOST='custom-vagrant-hosts.yml'
+export VAGRANT_HOSTS='custom-vagrant-hosts.yml'
 vagrant up
 ```
+
+Likewise, set the environment variable `VAGRANT_GROUPS` to use a custom groups file.
 
 ## Worked example
 
