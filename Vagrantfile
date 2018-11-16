@@ -36,26 +36,6 @@ groups = YAML.load_file(File.join(__dir__, vagrant_groups))
 
 # {{{ Helper functions
 
-def provision_ansible(config, host, groups)
-  if run_locally?
-    ansible_mode = 'ansible_local'
-  else
-    ansible_mode = 'ansible'
-  end
-
-  # Provisioning configuration for Ansible (for Mac/Linux hosts).
-  config.vm.provision ansible_mode do |ansible|
-    ansible.compatibility_mode = '2.0'
-    if ! groups.nil?
-      ansible.groups = groups
-    end
-    ansible.playbook = host.key?('playbook') ?
-        "ansible/#{host['playbook']}" :
-        "ansible/site.yml"
-    ansible.become = true
-  end
-end
-
 def run_locally?
   windows_host? || FORCE_LOCAL_RUN
 end
@@ -158,8 +138,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
 
-      # Run Ansible playbook for the VM
-      provision_ansible(config, host, groups)
+      ansible_mode = run_locally? ? 'ansible_local' : 'ansible'
+      
+      node.vm.provision ansible_mode do |ansible|
+        ansible.compatibility_mode = '2.0'
+        if ! groups.nil?
+          ansible.groups = groups
+        end
+        ansible.playbook = host.key?('playbook') ?
+            "ansible/#{host['playbook']}" :
+            "ansible/site.yml"
+        ansible.become = true
+      end
     end
   end
 end
