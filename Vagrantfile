@@ -28,7 +28,7 @@ VAGRANTFILE_API_VERSION = '2'
 PROJECT_NAME = '/' + File.basename(Dir.getwd)
 
 # set custom vagrant-hosts file
-vagrant_hosts = ENV['VAGRANTS_HOST'] ? ENV['VAGRANTS_HOST'] : 'vagrant-hosts.yml'
+vagrant_hosts = ENV['VAGRANT_HOSTS'] ? ENV['VAGRANT_HOSTS'] : 'vagrant-hosts.yml'
 hosts = YAML.load_file(File.join(__dir__, vagrant_hosts))
 
 vagrant_groups = ENV['VAGRANT_GROUPS'] ? ENV['VAGRANT_GROUPS'] : 'vagrant-groups.yml'
