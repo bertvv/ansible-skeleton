@@ -32,12 +32,6 @@ When cloning, choose another name for the target directory.
 > git clone https://github.com/bertvv/ansible-skeleton.git my-ansible-project
 ```
 
-On Windows, it is important to keep line endings in the Linux format:
-
-```ShellSession
-> git clone --config core.autocrlf=input https://github.com/bertvv/ansible-skeleton.git my-ansible-project
-```
-
 After cloning, it's best to remove the `.git` directory and initialise a new repository. The history of the skeleton code is irrelevant for your Ansible project.
 
 You can find an [initialization script](https://github.com/bertvv/ansible-toolbox/blob/master/bin/atb-init.sh) in my [ansible-toolbox](https://github.com/bertvv/ansible-toolbox/) that automates the process (including creating an empty Git repository).

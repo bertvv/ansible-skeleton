@@ -1,0 +1,12 @@
+# Default behaviour
+* text=auto
+
+# Shell scripts should have Unix endings
+*.sh text eol=lf
+*.bats text eol=lf
+*.py text eol=lf
+
+# Windows Batch or PowerShell scripts should have CRLF endings
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
