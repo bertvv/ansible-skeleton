@@ -31,17 +31,23 @@
 - name: srv001
   ip: 192.168.56.10
 
-- name: srv002
-  box: bertvv/fedora24
-  synced_folders:
-    - src: test
-      dest: /tmp/test
-    - src: www
-      dest: /var/www/html
-      options:
-        :create: true
-        :owner: root
-        :group: root
-        :mount_options: ['dmode=0755', 'fmode=0644']
-
-
+# Example of a more elaborate host definition
+# - name: srv002
+#   box: bento/fedora-28
+#   ip: 172.20.0.10
+#   netmask: 255.255.0.0
+#   mac: '13:37:de:ad:be:ef'
+#   playbook: srv002.yml
+#   forwarded_ports:
+#     host: 8080
+#     guest: 80
+#   synced_folders:
+#     - src: test
+#       dest: /tmp/test
+#     - src: www
+#       dest: /var/www/html
+#       options:
+#         :create: true
+#         :owner: root
+#         :group: root
+#         :mount_options: ['dmode=0755', 'fmode=0644']

@@ -3,7 +3,3 @@
 - hosts: srv001
   become: true
   roles: []
-
-- hosts: srv002
-  become: true
-  roles: []
