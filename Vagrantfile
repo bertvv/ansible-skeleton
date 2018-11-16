@@ -131,15 +131,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       shell_provisioners_always(node.vm, host)
       forwarded_ports(node.vm, host)
 
-      # Add VM to a VirtualBox group
       node.vm.provider :virtualbox do |vb|
+        vb.memory = host['memory'] if host.key? 'memory'
+        vb.cpus = host['cpus'] if host.key? 'cpus'
+
+        # Add VM to a VirtualBox group
         # WARNING: if the name of the current directory is the same as the
         # host name, this will fail.
         vb.customize ['modifyvm', :id, '--groups', PROJECT_NAME]
       end
 
+      # Ansible provisioning
       ansible_mode = run_locally? ? 'ansible_local' : 'ansible'
-      
       node.vm.provision ansible_mode do |ansible|
         ansible.compatibility_mode = '2.0'
         if ! groups.nil?
