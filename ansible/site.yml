@@ -1,5 +1,4 @@
 # site.yml
 ---
-- hosts: srv001
-  become: true
+- hosts: all
   roles: []
