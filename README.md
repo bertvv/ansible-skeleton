@@ -157,7 +157,7 @@ Alice wants to set up an environment with several web servers, a load balancer a
 # group-vars.yml
 ---
 db:
-  - srv001
+  - db001
 
 lb:
   - lb001
