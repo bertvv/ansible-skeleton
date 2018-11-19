@@ -113,7 +113,7 @@ As an example, a single host with hostname `srv001` is already defined. If you w
 - `site.yml` to assign roles to your nodes, e.g.:
 
 ```Yaml
-- host: srv003
+- hosts: srv003
   become: true
   roles:
     - bertvv.rh-base
