@@ -118,6 +118,20 @@ end
 
 # }}}
 
+def provision_ansible(node, host, groups)
+  ansible_mode = run_locally? ? 'ansible_local' : 'ansible'
+  node.vm.provision ansible_mode do |ansible|
+    ansible.compatibility_mode = '2.0'
+    if ! groups.nil?
+      ansible.groups = groups
+    end
+    ansible.playbook = host.key?('playbook') ?
+        "ansible/#{host['playbook']}" :
+        "ansible/site.yml"
+    ansible.become = true
+  end
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
   hosts.each do |host|
@@ -142,17 +156,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       # Ansible provisioning
-      ansible_mode = run_locally? ? 'ansible_local' : 'ansible'
-      node.vm.provision ansible_mode do |ansible|
-        ansible.compatibility_mode = '2.0'
-        if ! groups.nil?
-          ansible.groups = groups
-        end
-        ansible.playbook = host.key?('playbook') ?
-            "ansible/#{host['playbook']}" :
-            "ansible/site.yml"
-        ansible.become = true
-      end
+      provision_ansible(node, host, groups)
     end
   end
 end
