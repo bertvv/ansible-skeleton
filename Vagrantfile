@@ -14,7 +14,7 @@ require 'yaml'
 ENV["LC_ALL"] = "en_US.UTF-8"
 
 # Set your default base box here
-DEFAULT_BASE_BOX = 'bento/centos-7.5'
+DEFAULT_BASE_BOX = 'bento/centos-7.6'
 
 # When set to `true`, Ansible will be forced to be run locally on the VM
 # instead of from the host machine (provided Ansible is installed).
@@ -116,8 +116,6 @@ def forwarded_ports(vm, host)
   end
 end
 
-# }}}
-
 def provision_ansible(node, host, groups)
   ansible_mode = run_locally? ? 'ansible_local' : 'ansible'
   node.vm.provision ansible_mode do |ansible|
@@ -132,8 +130,10 @@ def provision_ansible(node, host, groups)
   end
 end
 
+# }}}
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.ssh.insert_key = false
+  
   hosts.each do |host|
     config.vm.define host['name'] do |node|
       node.vm.box = host['box'] ||= DEFAULT_BASE_BOX
