@@ -24,3 +24,6 @@ ansible/roles/*.*
 
 # Ansible Retry-files
 *.retry
+
+# Ansible fact cache
+.ansible_cache/
